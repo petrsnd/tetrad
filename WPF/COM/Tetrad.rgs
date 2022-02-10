@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {5EFAB57F-1503-4DF6-8B1D-34DAB72FBBF6} = s 'Tetrad Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{A248FB29-C673-4C3E-B6C2-BE8F781AC6FD}'
+			Version = s '1.0'
+		}
+	}
+}

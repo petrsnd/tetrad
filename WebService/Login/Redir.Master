@@ -1,0 +1,69 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Redir.master.cs" Inherits="TetraSlide.Login.Redir" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Unknown</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .style1
+        {
+            width: 115px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    
+        <h1>
+            Login <asp:Label ID="LoginStatusLabel" runat="server" Text="LoginStatusLabel"></asp:Label>
+        </h1>        
+        <hr />
+        <p>
+            <asp:Label ID="LoginMessageLabel" runat="server" Text="LoginMessageLabel"></asp:Label>
+        </p>
+        
+        <div ID="LoginAttributesDiv" runat="server">
+        <table style="width: 100%;">
+            <tr>
+                <td class="style1">
+                    Access Code:
+                </td>
+                <td>
+                    <asp:TextBox ID="AccessCodeTextbox" runat="server" Width="600px">AccessCodeTextbox</asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="style1">
+                    Name:
+                </td>
+                <td>
+                    <asp:Label ID="NameLabel" runat="server" Text="NameLabel"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="style1">
+                    Email Address:
+                </td>
+                <td>
+                    <asp:Label ID="EmailAddressLabel" runat="server" Text="EmailAddressLabel"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="style1">
+                    Identity Provider:
+                </td>
+                <td>
+                    <asp:Label ID="IdentityProviderLabel" runat="server" Text="IdentityProviderLabel"></asp:Label>
+                </td>
+            </tr>
+        </table>
+        </div>
+    <p>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </p>
+    </form>
+</body>
+</html>

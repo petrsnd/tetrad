@@ -1,0 +1,134 @@
+// COM.idl : IDL source for COM
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (COM.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef enum {
+    DIR_LEFT,
+    DIR_RIGHT,
+    DIR_UP,
+    DIR_DOWN,
+    DIR_INVALID
+} BOARD_DIRECTION;
+
+ // _BEGIN and _END are for iteration
+typedef enum {
+    TETRAD_BEGIN = 1,
+    TETRAD_SQUARE = TETRAD_BEGIN,
+    TETRAD_LINE,
+    TETRAD_BACKWARDSL,
+    TETRAD_LSHAPE,
+    TETRAD_DOWNSTEP,
+    TETRAD_UPSTEP,
+    TETRAD_PODIUM,
+    TETRAD_END
+} TETRAD_SHAPE;
+
+typedef enum PLAYER
+{
+    ME,
+    THEM,
+} PLAYER;
+
+[
+	object,
+	uuid(2A1409E2-728C-4C2D-8E0D-88F5A62CE38B),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IPosition : IDispatch{
+	[propget, id(1)] HRESULT X([out, retval] SHORT* pVal);
+	[propput, id(1)] HRESULT X([in] SHORT newVal);
+	[propget, id(2)] HRESULT Y([out, retval] SHORT* pVal);
+	[propput, id(2)] HRESULT Y([in] SHORT newVal);
+};
+
+[
+	object,
+	uuid(2727C657-C8CB-4153-B460-6B920377F4E1),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ITetrad : IDispatch{
+	[propget, id(1)] HRESULT Shape([out, retval] TETRAD_SHAPE* pVal);
+	[propget, id(2)] HRESULT Positions([out, retval] IPosition* pVal[4]);
+};
+
+[
+	object,
+	uuid(FECD5AE8-F85E-4AF8-B93D-EAA4A56BC0AE),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IMoveResult : IDispatch{
+
+	[id(1)] HRESULT GetTilePositions([out,retval] SAFEARRAY(VARIANT)* result);
+	[propget, id(2)] HRESULT Distance([out, retval] BYTE* pVal);
+	[propget, id(3)] HRESULT Direction([out, retval] BOARD_DIRECTION* pVal);
+	[propget, id(4)] HRESULT MyNewTetrad([out, retval] ITetrad** pVal);
+	[propget, id(5)] HRESULT TheirNewTetrad([out, retval] ITetrad** pVal);
+};
+
+[
+	object,
+	uuid(C2B82956-4169-4461-81D5-2AA92CB1F1E3),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ITetradEngine : IDispatch{
+	[id(1)] HRESULT GetBoard([in] PLAYER player,[out,retval] ULONG* encoded);
+	[id(2)] HRESULT GetTetrads([in] PLAYER player, [out,retval] ULONG* tetrads);
+	[id(3)] HRESULT GetTargets([in] IPosition* pos, [out, ref, retval] SAFEARRAY(VARIANT)* targets);
+	[id(4)] HRESULT Move([in] IPosition* from, [in] IPosition* to, [out,retval] IMoveResult** result);
+	[id(5)] HRESULT Init();
+    [id(6)] HRESULT GetOpponentMove([out,retval] IMoveResult** result);
+};
+
+
+
+[
+	uuid(A248FB29-C673-4C3E-B6C2-BE8F781AC6FD),
+	version(1.0),
+]
+library COMLib
+{
+	enum PLAYER;
+	importlib("stdole2.tlb");
+	[
+		uuid(48A09DEF-BAB8-422B-9CF4-6D9680120A38)		
+	]
+	coclass TetradEngine
+	{
+		[default] interface ITetradEngine;
+	};
+	[
+		uuid(09CD4157-8B32-48AF-A4A5-25FAFBA8FBEA)		
+	]
+	coclass Position
+	{
+		[default] interface IPosition;
+	};
+	[
+		uuid(281D7946-E506-4153-A23D-F635EBFD90AD)		
+	]
+	coclass MoveResult
+	{
+		[default] interface IMoveResult;
+	};
+	[
+		uuid(5EFAB57F-1503-4DF6-8B1D-34DAB72FBBF6)		
+	]
+	coclass Tetrad
+	{
+		[default] interface ITetrad;
+	};
+};
+

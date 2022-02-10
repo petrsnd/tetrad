@@ -1,0 +1,7 @@
+INCLUDE( sources.cmake )
+
+ADD_LIBRARY( Base64 STATIC ${LIBRARY_SRCS} )
+
+IF( MSVC )
+	ADD_SUBDIRECTORY( StaticCRT )
+ENDIF( MSVC )

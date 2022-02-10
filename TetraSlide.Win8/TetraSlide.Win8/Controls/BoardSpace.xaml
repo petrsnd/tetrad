@@ -1,0 +1,29 @@
+﻿<UserControl
+    x:Class="TetraSlide.Win8.Controls.BoardSpace"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TetraSlide.Win8.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tsdx="using:TsDX"
+    mc:Ignorable="d"
+    d:DesignHeight="100"
+    d:DesignWidth="100">
+    <Grid Background="Transparent">
+        <Border Name="Decorator" Canvas.ZIndex="1000" IsHitTestVisible="False" BorderThickness="0">
+            <Grid>
+                <Grid Name="ValidDecoration" Visibility="Collapsed">
+                    <Rectangle Fill="Transparent" Stroke="LawnGreen" StrokeThickness="10" StrokeDashArray="5 1"/>
+                </Grid>
+                <Grid Margin="10" Name="InvalidDecoration" Visibility="Collapsed">
+                    <Ellipse Fill="Transparent" Stroke="Red" StrokeThickness="10" StrokeDashArray="5 1"/>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <tsdx:GameText Text="No" FillColor="Red"  Foreground="Red" FontSize="14" />
+                        <tsdx:GameText Text="Undo" FillColor="Red"  Foreground="Red" FontSize="14" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Name="TileBorder" Canvas.ZIndex="0"></Border>
+    </Grid>
+</UserControl>

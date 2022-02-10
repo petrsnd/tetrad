@@ -1,0 +1,125 @@
+﻿<Window x:Class="WPF.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WPF"
+        Title="TetraSlide" Width="1000" Height="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        
+        <Style x:Key="MuteButtonStyle" TargetType="Button">
+            <Setter Property="MinWidth" Value="40" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="40,0,40,40" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Canvas x:Name="BackButton">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MouseOverEllipse" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PressedEllipse" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0.35" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="BackButton" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Ellipse x:Name="PressedEllipse" Fill="{StaticResource HighlightBrush}" Opacity="0" Width="40" Height="40"/>
+                            <Ellipse x:Name="MouseOverEllipse" Fill="#7F8D8D8D" Opacity="0" Width="40" Height="40"/>
+                            <Path StrokeThickness="2.0" Stroke="#ffffffff" StrokeMiterLimit="1.0" Data="F1 M 39.479,20.240 C 39.479,30.866 30.866,39.479 20.239,39.479 C 9.614,39.479 1.000,30.866 1.000,20.240 C 1.000,9.614 9.614,1.000 20.239,1.000 C 30.866,1.000 39.479,9.614 39.479,20.240 Z"/>
+                            <Path StrokeThickness="2.0" Stroke="#ffffffff" StrokeMiterLimit="1.0" Data="F1 M 25.688,13.951 L 30.362,12.393"/>
+                            <Path StrokeThickness="2.0" Stroke="#ffffffff" StrokeMiterLimit="1.0" Data="F1 M 25.688,25.393 L 30.362,26.952"/>
+                            <Path StrokeThickness="2.0" Stroke="#ffffffff" StrokeMiterLimit="1.0" Data="F1 M 26.344,19.643 L 31.994,19.688"/>
+                            <Path Fill="#ffffffff" Data="F1 M 22.612,31.143 L 14.612,26.143 L 7.612,26.143 L 7.612,14.143 L 14.612,14.143 L 22.612,9.143 L 22.612,31.143 Z"/>
+                            <Path Visibility="{Binding IsMuted, Converter={StaticResource BoolToVisibility}}" Fill="Red" Data="F1 M10,8 L35,32 L30,32 L5,8 z" />
+                            <Path Visibility="{Binding IsMuted, Converter={StaticResource BoolToVisibility}}" Fill="Red" Data="F1 M30,8 L5,32 L10,32 L35,8 z">
+                            </Path>
+                        </Canvas>
+                   </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="InfoButtonStyle" TargetType="Button">
+            <Setter Property="MinWidth" Value="40" />
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="40,0,40,40" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Canvas x:Name="BackButton">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MouseOverEllipse" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PressedEllipse" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0.35" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="BackButton" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Ellipse x:Name="PressedEllipse" Fill="{StaticResource HighlightBrush}" Opacity="0" Width="40" Height="40"/>
+                            <Ellipse x:Name="MouseOverEllipse" Fill="#7F8D8D8D" Opacity="0" Width="40" Height="40"/>
+                            <Path Fill="White" Data="F1 M20.2168,40 C31.2608,40,40.2168,31.045,40.2168,20 C40.2168,8.958,31.2608,0,20.2168,0 C9.1708,0,0.216799999999999,8.958,0.216799999999999,20 C0.216799999999999,31.045,9.1708,40,20.2168,40 M20.2168,37.161 C10.7548,37.161,3.0578,29.462,3.0578,20 C3.0578,10.538,10.7548,2.839,20.2168,2.839 C29.6788,2.839,37.3758,10.538,37.3758,20 C37.3758,29.462,29.6788,37.161,20.2168,37.161"/>
+                            <Path Fill="White" Data="F1 m17,18 v15 h6 v-15z"/>
+                            <Ellipse Fill="White" Width="6" Height="6" Margin="17,9"/>
+                        </Canvas>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ImageBrush x:Key="BgTexture" ImageSource="./Resources/bg02.png" TileMode="Tile" Viewport="0,0,70,70" ViewportUnits="Absolute"/>
+    </Window.Resources>
+    <Grid Background="{StaticResource BgTexture}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="1" Style="{StaticResource MuteButtonStyle}" 
+                HorizontalAlignment="Right"
+                ToolTip="Sound On/Off"
+                Command="{Binding ToggleMute}">
+        </Button>
+        <TextBlock Grid.Column="1" Foreground="White" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="37,10" Text="{Binding LogonText}" FontFamily="Segoue"></TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="2"  VerticalAlignment="Center" HorizontalAlignment="Center">
+            <local:OutlinedText FontSize="50">TETRA</local:OutlinedText>
+            <Image Source="Resources/slide.png" Stretch="None"  ></Image>
+            <TextBlock FontSize="40" FontFamily="Segoe UI" FontWeight="Light" Foreground="White" FontStyle="Italic">SLIDE</TextBlock>
+        </StackPanel>
+        <ContentControl  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding CurrentView}"/>
+        <Button Style="{StaticResource BackButtonStyle}" 
+                HorizontalAlignment="Left"
+                ToolTip="Back"
+                Command="{Binding BackCommand}"
+                Visibility="{Binding BackEnabled}">
+        </Button>
+    </Grid>
+    
+
+</Window>

@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {0060F09E-6365-4AD2-BD16-A2CC37E9343F} = s 'TurnCallback Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Free'
+			}
+			TypeLib = s '{A2D5F19A-209F-4458-9384-B078C550FCA0}'
+			Version = s '1.0'
+		}
+	}
+}

@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {D827CB47-E145-40BE-8231-FC1BD5490E6D} = s 'GameDescriptor Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Free'
+			}
+			TypeLib = s '{A2D5F19A-209F-4458-9384-B078C550FCA0}'
+			Version = s '1.0'
+		}
+	}
+}

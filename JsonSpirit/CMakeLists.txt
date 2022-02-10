@@ -1,0 +1,8 @@
+INCLUDE( sources.cmake )
+
+ADD_LIBRARY( JsonSpirit STATIC ${LIBRARY_SRCS} )
+
+IF( MSVC )
+	ADD_SUBDIRECTORY( StaticCRT )
+ENDIF( MSVC )
+

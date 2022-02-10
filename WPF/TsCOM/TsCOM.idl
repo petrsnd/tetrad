@@ -1,0 +1,214 @@
+// TsCOM.idl : IDL source for TsCOM
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (TsCOM.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+
+typedef enum 
+{
+	Local,
+	Computer,
+	Remote
+} PlayerType;
+ 
+typedef enum 
+{
+	Home,
+	Away
+} PlayerTeam;
+ 
+typedef enum  {
+	None = 0,
+	Square = 1,
+	Line,
+	BackwardsL,
+	LShape,
+	Downstep,
+	Upstep,
+	Podium
+} TetradShape;
+
+typedef enum {
+	NoDirection = 0,
+	Up,
+	Down,
+	Left,
+	Right
+} Direction;
+
+
+[
+	object,
+	uuid(018886A8-D3F7-4497-ACF2-AF5C6CE0CDF9),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IPlayer : IDispatch{
+	[propget, id(1)] HRESULT Type([out, retval] PlayerType* pVal);
+	[propput, id(1)] HRESULT Type([in] PlayerType newVal);
+	[propget, id(2)] HRESULT Identity([out, retval] BSTR* pVal);
+	[propput, id(2)] HRESULT Identity([in] BSTR newVal);
+	[propget, id(3)] HRESULT Team([out, retval] PlayerTeam* pVal);
+	[propput, id(3)] HRESULT Team([in] PlayerTeam newVal);
+	[id(4)] HRESULT HasTetrad([in] TetradShape shape, [out,retval] ULONG* result);
+	[propget, id(5)] HRESULT RgbColor([out, retval] ULONG* pVal);
+	[propput, id(5)] HRESULT RgbColor([in] ULONG newVal);
+	[propget, id(6)] HRESULT Name([out, retval] BSTR* pVal);
+	[propput, id(6)] HRESULT Name([in] BSTR newVal);
+};
+[
+	object,
+	uuid(365A8944-25B4-45B2-B65D-680E05D11D2E),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IPosition : IDispatch{
+	[propget, id(1)] HRESULT X([out, retval] SHORT* pVal);
+	[propput, id(1)] HRESULT X([in] SHORT newVal);
+	[propget, id(2)] HRESULT Y([out, retval] SHORT* pVal);
+	[propput, id(2)] HRESULT Y([in] SHORT newVal);
+};
+[
+	object,
+	uuid(B2A02345-3072-43CA-BDD0-E9117184B0BE),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ITile : IDispatch{
+	[propget, id(1)] HRESULT Id([out, retval] int* pVal);
+	[propget, id(2)] HRESULT Position([out, retval] IPosition** pVal);
+	[propput, id(2)] HRESULT Position([in] IPosition* newVal);
+	[propget, id(3)] HRESULT Team([out, retval] PlayerTeam* pVal);
+	[id(4)] HRESULT GetTargets([out,retval] SAFEARRAY(VARIANT)* targets);
+};
+[
+	object,
+	uuid(0DB9F163-CC13-4AAB-B320-FB0A15F4D0E5),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IGameDescriptor : IDispatch{
+	[propget, id(1)] HRESULT Id([out, retval] BSTR* pVal);
+	[propget, id(2)] HRESULT FriendlyName([out, retval] BSTR* pVal);
+	[id(3)] HRESULT GetTiles([out,retval] SAFEARRAY(VARIANT)* tiles);
+	[id(4)] HRESULT GetHomePlayer([out,retval] IPlayer** player);
+	[id(5)] HRESULT GetAwayPlayer([out,retval] IPlayer** player);
+	[id(6)] HRESULT GetTurn( [out,retval] PlayerTeam* team);
+};
+[
+	object,
+	uuid(FEF9704D-75B0-46E5-A320-15ADEC9C869D),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface ITurnCallback : IDispatch{
+	[id(1)] HRESULT LocalTurnComplete([in] ITile* tile, IPosition* target);
+	[id(2)] HRESULT AnimationComplete(void);
+	[id(3)] HRESULT GetRemoteGameComplete( [in] BSTR game );
+	[id(4)] HRESULT PutRemoteGameComplete( void );
+	[id(5)] HRESULT DeleteRemoteGameComplete( void );
+};
+[
+	object,
+	uuid(637C808C-E009-4832-B4D6-1B3EDB6B53FC),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IGameView : IDispatch{
+	[id(1)] HRESULT GameResumed(IGameDescriptor* game, PlayerTeam turn);
+	[id(2)] HRESULT GameSuspended(IGameDescriptor* game);
+	[id(3)] HRESULT GameOver([in] IPlayer* winner);
+	[id(4)] HRESULT StateChanged();
+	[id(5)] HRESULT TetradFound([in] ITurnCallback* callback, IPlayer* player, TetradShape shape, [in] SAFEARRAY(UINT) tileIds);
+	[id(6)] HRESULT DoLocalTurn([in] ITurnCallback* callback);
+	[id(7)] HRESULT AnimateTurn([in] ITurnCallback* callback, [in] SAFEARRAY(UINT) tileIds, [in]Direction direction, [in] UCHAR distance  );
+	[id(8)] HRESULT Log( [in]BSTR msg, [in]BSTR file, [in]int line );
+	[id(9)] HRESULT GetAuthToken( [out,retval]BSTR* token );
+	[id(10)] HRESULT GetRemoteGames( [out,retval]SAFEARRAY(BSTR)* games );
+	[id(11)] HRESULT NewRemoteGame( [in]BSTR localId, [in]BSTR remoteId, [out,retval]BSTR* gameId );
+	[id(12)] HRESULT GetRemoteGame( [in]ITurnCallback* callback,  [in] BSTR gameId );
+	[id(13)] HRESULT PutRemoteGame( [in]ITurnCallback* callback,  [in] BSTR gameId, [in]BSTR game );
+	[id(14)] HRESULT DeleteRemoteGame( [in]ITurnCallback* callback,  [in] BSTR gameId );
+};
+[
+	object,
+	uuid(CCC8E027-77CD-49E3-A1E4-232DA8016A17),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IEngine : IDispatch{
+	[id(1)] HRESULT Init([in] IGameView* view);
+	[id(2)] HRESULT CreateGame([in] IPlayer* player1, [in] IPlayer* player2, [out,retval] IGameDescriptor** game);
+	[id(3)] HRESULT SuspendGame([in] IGameDescriptor* game);
+	[id(4)] HRESULT ResumeGame([in] IGameDescriptor* game);
+	[id(5)] HRESULT GetGameDescriptors([in] BSTR localId, [out,retval]SAFEARRAY(VARIANT)* games);
+};
+[
+	uuid(A2D5F19A-209F-4458-9384-B078C550FCA0),
+	version(1.0),
+]
+library TsCOMLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(3ED31C2A-FFA4-45F7-8982-2EA15C2FA6AC)		
+	]
+	coclass Player
+	{
+		[default] interface IPlayer;
+	};
+	[
+		uuid(839F06F0-D412-42F7-9983-D9285FCF28C8)		
+	]
+	coclass Position
+	{
+		[default] interface IPosition;
+	};
+	[
+		uuid(80BFC225-119F-42BF-96CE-41213B0BEDE8)		
+	]
+	coclass Tile
+	{
+		[default] interface ITile;
+	};
+	[
+		uuid(D827CB47-E145-40BE-8231-FC1BD5490E6D)		
+	]
+	coclass GameDescriptor
+	{
+		[default] interface IGameDescriptor;
+	};
+	[
+		uuid(0060F09E-6365-4AD2-BD16-A2CC37E9343F)		
+	]
+	coclass TurnCallback
+	{
+		[default] interface ITurnCallback;
+	};
+	[
+		uuid(8A398FB8-093E-468D-A3C4-4BC132DB8DAB)		
+	]
+	coclass GameView
+	{
+		[default] interface IGameView;
+	};
+	[
+		uuid(F84334B0-7BFD-4F36-8509-9CABBD35AB41)		
+	]
+	coclass Engine
+	{
+		[default] interface IEngine;
+	};
+};
+

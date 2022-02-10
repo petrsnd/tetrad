@@ -1,0 +1,30 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tsdx="using:TsDX">
+
+    <Style TargetType="tsdx:GameText">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="tsdx:GameText">
+                    <Border x:Name="DrawSurface"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="tsdx:GameBackground">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="tsdx:GameBackground">
+                    <Border x:Name="DrawSurface"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

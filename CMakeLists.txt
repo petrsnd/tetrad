@@ -1,0 +1,36 @@
+CMAKE_MINIMUM_REQUIRED( VERSION 2.8.9 )
+PROJECT( Tetrad )
+
+SET( Boost_USE_STATIC_LIBS ON )
+SET( Boost_USE_MULTITHREADED ON )
+SET( Boost_ADDITIONAL_VERSIONS "1.51.0" "1.51" )
+IF( MSVC )
+	STRING( TOLOWER "$ENV{Platform}" generator )
+	IF( generator STREQUAL "x64" )
+		SET( BOOST_LIBRARYDIR "${BOOST_ROOT}\\boost\\lib64" )
+	ENDIF()
+ENDIF( MSVC )
+FIND_PACKAGE( Boost COMPONENTS unit_test_framework REQUIRED )
+IF( Boost_FOUND )
+	INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIRS} )
+ELSE( Boost_FOUND )
+	MESSAGE( FATAL_ERROR 
+		 "Required Boost Libraries not found. Install boost or set BOOST_ROOT to the installed location." )
+ENDIF( Boost_FOUND )
+
+IF( MSVC )
+	ADD_DEFINITIONS( "-DBOOST_ALL_NO_LIB" "-D_SCL_SECURE_NO_WARNINGS" "/bigobj" )
+	STRING( TOLOWER "$ENV{Platform}" generator )
+	IF( generator STREQUAL "arm" )
+		SET( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /D_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE" )
+		SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE" )
+		SET( CMAKE_C_STANDARD_LIBRARIES "kernel32.lib user32.lib ole32.lib oleaut32.lib uuid.lib advapi32.lib" 
+			CACHE STRING "Libraries linked by default with all C applications." FORCE )
+		SET( CMAKE_CXX_STANDARD_LIBRARIES "kernel32.lib user32.lib ole32.lib oleaut32.lib uuid.lib advapi32.lib"
+			CACHE STRING "Libraries linked by default with all C++ applications." FORCE )
+	ENDIF()
+ELSE( MSVC )
+	SET( CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -std=c++0x )
+ENDIF( MSVC )
+
+SUBDIRS( Base64 JsonSpirit Engine EngineTest Stats )

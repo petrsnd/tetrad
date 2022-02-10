@@ -1,0 +1,19 @@
+﻿<UserControl
+    x:Class="TetraSlide.Win8.Controls.Tile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TetraSlide.Win8.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="50"
+    d:DesignWidth="50"
+    Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}"
+    >
+    <Border Name="Border" BorderBrush="Black" BorderThickness="1">
+        <!--
+        <Image Source="{Binding Path=Face, Converter={StaticResource ConvertIdToFace}}"/>
+        -->
+        <Rectangle Name="TileRect" Fill="{Binding TeamBrush}"  Margin="1"/>
+    </Border>
+</UserControl>

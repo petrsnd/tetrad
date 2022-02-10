@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="WPF.ColorSelection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             >
+    <Grid Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="55">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Foreground="White" HorizontalAlignment="Left" FontSize="50" Text="{Binding Caption}"></TextBlock>
+        <StackPanel Orientation="Horizontal" Name="ButtonGrid" Grid.Row="1">
+            <Button Name="Orange" Click="OrangeClicked" Style="{StaticResource ColorButton}" Background="{StaticResource ButtonBackgroundBrush}" />
+            <Button Name="Purple" Click="PurpleClicked" Style="{StaticResource ColorButton}" Background="{StaticResource PurpleBackgroundBrush}" />
+            <Button Name="Red" Click="RedClicked" Style="{StaticResource ColorButton}" Background="{StaticResource RedBackgroundBrush}" />
+            <Button Name="Green" Click="GreenClicked" Style="{StaticResource ColorButton}" Background="{StaticResource GreenBackgroundBrush}" />
+            <Button Name="Blue" Click="BlueClicked" Style="{StaticResource ColorButton}" Background="{StaticResource BlueBackgroundBrush}" />
+            <Button Name="Yellow" Click="YellowClicked" Style="{StaticResource ColorButton}" Background="{StaticResource YellowBackgroundBrush}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

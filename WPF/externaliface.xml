@@ -1,0 +1,9 @@
+﻿<snippett>
+  <comInterfaceExternalProxyStub name="IPlayer" iid="{018886A8-D3F7-4497-ACF2-AF5C6CE0CDF9}" tlbid="{A2D5F19A-209F-4458-9384-B078C550FCA0}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" xmlns="urn:schemas-microsoft-com:asm.v1"></comInterfaceExternalProxyStub>
+  <comInterfaceExternalProxyStub name="IPosition" iid="{365A8944-25B4-45B2-B65D-680E05D11D2E}" tlbid="{A2D5F19A-209F-4458-9384-B078C550FCA0}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" xmlns="urn:schemas-microsoft-com:asm.v1"></comInterfaceExternalProxyStub>
+  <comInterfaceExternalProxyStub name="ITile" iid="{B2A02345-3072-43CA-BDD0-E9117184B0BE}" tlbid="{A2D5F19A-209F-4458-9384-B078C550FCA0}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" xmlns="urn:schemas-microsoft-com:asm.v1"></comInterfaceExternalProxyStub>
+  <comInterfaceExternalProxyStub name="IGameDescriptor" iid="{0DB9F163-CC13-4AAB-B320-FB0A15F4D0E5}" tlbid="{A2D5F19A-209F-4458-9384-B078C550FCA0}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" xmlns="urn:schemas-microsoft-com:asm.v1"></comInterfaceExternalProxyStub>
+  <comInterfaceExternalProxyStub name="ITurnCallback" iid="{FEF9704D-75B0-46E5-A320-15ADEC9C869D}" tlbid="{A2D5F19A-209F-4458-9384-B078C550FCA0}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" xmlns="urn:schemas-microsoft-com:asm.v1"></comInterfaceExternalProxyStub>
+  <comInterfaceExternalProxyStub name="IGameView" iid="{637C808C-E009-4832-B4D6-1B3EDB6B53FC}" tlbid="{A2D5F19A-209F-4458-9384-B078C550FCA0}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" xmlns="urn:schemas-microsoft-com:asm.v1"></comInterfaceExternalProxyStub>
+  <comInterfaceExternalProxyStub name="IEngine" iid="{CCC8E027-77CD-49E3-A1E4-232DA8016A17}" tlbid="{A2D5F19A-209F-4458-9384-B078C550FCA0}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}" xmlns="urn:schemas-microsoft-com:asm.v1"></comInterfaceExternalProxyStub>
+</snippett>
