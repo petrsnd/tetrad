@@ -7,10 +7,6 @@ using System.IO;
 
 namespace EffingManifestFixer
 {
-
-    
-
-
     class Program
     {
         static string ReadFile(string path)

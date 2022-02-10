@@ -29,10 +29,10 @@ namespace MattSux
                 Console.WriteLine("Account was NULL");
                 return "";
             }
-            Console.WriteLine(string.Format("Account for: {0}", a.access_token));
-            Console.WriteLine(string.Format("  Name:      {0}", a.name));
-            Console.WriteLine(string.Format("  Email:     {0}", a.email_address));
-            Console.WriteLine(string.Format("  Provider:  {0}", a.identity_provider));
+            Console.WriteLine($"Account for: {a.access_token}");
+            Console.WriteLine($"  Name:      {a.name}");
+            Console.WriteLine($"  Email:     {a.email_address}");
+            Console.WriteLine($"  Provider:  {a.identity_provider}");
             return a.email_address;
         }
         static void CheckGameForNull(Game g)
@@ -80,7 +80,7 @@ namespace MattSux
             PrintGame(updateGame);
             if (newGameId != updateGameId)
             {
-                throw new Exception(string.Format("Game ID changed from {0} to {1}!", newGameId, updateGameId));
+                throw new Exception($"Game ID changed from {newGameId} to {updateGameId}!");
             }
             if (!updateGame.data.Equals("==string for move one=="))
             {
@@ -89,12 +89,12 @@ namespace MattSux
 
             Console.WriteLine("\n\n{1} tries to get the game he has been invited to by {0}...", email1, email2);
             var getterPlayer2 = new GamesClient(args[1]);
-            var games = getterPlayer2.GetMine();
-            if (games == null || games.Count() < 1)
+            var games = getterPlayer2.GetMine().ToArray();
+            if (games == null || !games.Any())
             {
                 throw new Exception("No games were returned!");
             }
-            var getGame = games.FirstOrDefault(g => { return g.id == updateGameId; });
+            var getGame = games.FirstOrDefault(g => g.id == updateGameId);
             if (getGame == null)
             {
                 Console.WriteLine("Game identifiers returned:");
@@ -102,11 +102,11 @@ namespace MattSux
                 {
                     Console.WriteLine("  {0}", g.id);
                 }
-                throw new Exception(string.Format("Unable to find game with identifier: {0}", updateGameId));
+                throw new Exception($"Unable to find game with identifier: {updateGameId}");
             }
             if (!getGame.data.Equals("==string for move one=="))
             {
-                throw new Exception(string.Format("Game did not have the current move from {0}!", email1));
+                throw new Exception($"Game did not have the current move from {email1}!");
             }
 
             Console.WriteLine("\n\n{0} executes the second move...", email2);
@@ -131,7 +131,7 @@ namespace MattSux
             string getGameId2 = getGame2.id;
             if (updateGameId != getGameId2)
             {
-                throw new Exception(string.Format("Game ID changed from {0} to {1}!", updateGameId, getGameId2));
+                throw new Exception($"Game ID changed from {updateGameId} to {getGameId2}!");
             }
             if (!getGame2.data.Equals("==string for move TWO=="))
             {
@@ -142,8 +142,8 @@ namespace MattSux
         {
             Console.WriteLine("Get all games for: {0}", args[0]);
             var getterPlayer = new GamesClient(args[0]);
-            var games = getterPlayer.GetMine();
-            if (games == null || games.Count() < 1)
+            var games = getterPlayer.GetMine().ToArray();
+            if (games == null || !games.Any())
             {
                 throw new Exception("No games were returned!");
             }
@@ -182,7 +182,7 @@ namespace MattSux
                 }
                 else
                 {
-                    PrintUsage();
+                    result = PrintUsage();
                 }
             }
             catch (Exception e)
