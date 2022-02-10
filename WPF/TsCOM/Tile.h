@@ -4,13 +4,9 @@
 #include "resource.h"       // main symbols
 #include <Engine/Interfaces.h>
 
-
 #include "TsCOM_i.h"
 
-
-
 using namespace ATL;
-
 
 // CTile
 

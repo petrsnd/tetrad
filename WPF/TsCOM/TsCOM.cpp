@@ -2,7 +2,6 @@
 
 
 #include "stdafx.h"
-#include "resource.h"
 #include "TsCOM_i.h"
 #include "dllmain.h"
 #include "xdlldata.h"
@@ -60,7 +59,7 @@ STDAPI DllUnregisterServer(void)
 // DllInstall - Adds/Removes entries to the system registry per user per machine.
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
+	HRESULT hr;
 	static const wchar_t szUserSwitch[] = L"user";
 
 	if (pszCmdLine != NULL)

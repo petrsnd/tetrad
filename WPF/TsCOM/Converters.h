@@ -44,8 +44,9 @@ inline Direction ConvertImplbitsDirectionToComDirection( const Implbits::BoardDi
         return Up;
     case Implbits::DIR_DOWN:
         return Down;
+    default:
+        throw "TODO: Invalid Implbits board direction";
     }
-    throw "TODO: Invalid Implbits board direction";
 }
 
 inline PlayerTeam ConvertImplbitsTeamToComTeam( const Implbits::PlayerTeam team )
@@ -90,8 +91,9 @@ inline TetradShape ConvertImplbitsShapeToComShape( const Implbits::TetradShape s
         return Upstep;
     case Implbits::TETRAD_PODIUM:
         return Podium;
+    default:
+        throw "TODO: Unknown Implbits shape";
     }
-    throw "TODO: Unknown implbits shape";
 }
 
 inline Implbits::TetradShape ConvertComShapeToImplbitsShape( const TetradShape shape )

@@ -8,7 +8,7 @@
 #include "GameDescriptor.h"
 #include "TurnCallback.h"
 #include "Player.h"
-#include "Tile.h"
+// #include "Tile.h"
 #include "Converters.h"
 #include <comutil.h>
 #include <functional>
@@ -149,7 +149,7 @@ public:
             games.Attach( sa );
             for( size_t i = 0; i < games.GetCount(); ++i )
             {
-                std::string tmp = _bstr_t (games.GetAt(i));
+                std::string tmp( _bstr_t ( games.GetAt(i) ) );
                 retval.push_back( tmp );
             }
         }
