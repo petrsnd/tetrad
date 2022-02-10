@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace TetraSlide.Api.Models
+﻿namespace TetraSlide.Api.Models
 {
     public class Player
     {

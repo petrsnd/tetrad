@@ -3,13 +3,12 @@
 // All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace TetraSlide.Api.Clients
 {
-    using System;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-
     /// <summary>
     /// Base class for Tetraslide API Client.  Encapsulates discovery/setting of the 
     /// base TetraSlide API endpoint and possibly other common functionality

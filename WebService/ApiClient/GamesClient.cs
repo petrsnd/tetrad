@@ -3,17 +3,15 @@
 // All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
-
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using TetraSlide.Api.Models;
 using Newtonsoft.Json;
 
 namespace TetraSlide.Api.Clients
 {
-    using System.Collections.Generic;
-    using System.Net;
-    using System.Net.Http;
-    using System.Threading.Tasks;
-    using Models;
-
     /// <summary>
     /// Client API for calling the Games collection service (for listing games)
     /// </summary>

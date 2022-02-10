@@ -3,12 +3,11 @@
 // All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+using System;
+using System.Net;
 
 namespace TetraSlide.Api.Clients
 {
-    using System;
-    using System.Net;
-
     /// <summary>
     /// Represents an error that has occured in an TetraSlide API client
     /// </summary>

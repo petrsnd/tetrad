@@ -4,15 +4,14 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using TetraSlide.Api.Models;
 using Newtonsoft.Json;
 
 namespace TetraSlide.Api.Clients
 {
-    using System.Net;
-    using System.Net.Http;
-    using System.Threading.Tasks;
-    using Models;    
-
     /// <summary>
     /// Client for calling tetraslide Game API
     /// </summary>
