@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Newtonsoft.Json;
+
 namespace TetraSlide.Api.Clients
 {
     using System.Net;
@@ -68,10 +70,7 @@ namespace TetraSlide.Api.Clients
             // Create the new account
             string url = string.Format("account?access_token={0}", AccessToken);
 
-            ObjectContent content = new ObjectContent(
-               typeof(Account),
-               account,
-               JsonMediaTypeFormatter.DefaultMediaType);
+            var content = new StringContent(JsonConvert.SerializeObject(account));
             
             using (var responseTask = Client.PostAsync(url, content))
             {
@@ -88,11 +87,8 @@ namespace TetraSlide.Api.Clients
         public Account Update(string email, Account account)
         {
             string url = string.Format("account/{0}?access_token={1}", email, AccessToken);
-                        
-            ObjectContent content = new ObjectContent(
-                typeof(Account),
-                account,
-                JsonMediaTypeFormatter.DefaultMediaType);
+
+            var content = new StringContent(JsonConvert.SerializeObject(account));
 
             using (var responseTask = Client.PutAsync(url, content))
             {
@@ -112,9 +108,9 @@ namespace TetraSlide.Api.Clients
                 throw new ApiClientException(responseTask.Result.StatusCode, responseTask.Result.Content.ReadAsStringAsync().Result);
             }
 
-            using (var contentTask = responseTask.Result.Content.ReadAsAsync<Account>())
+            using (var contentTask = responseTask.Result.Content.ReadAsStringAsync())
             {
-                return contentTask.Result;
+                return JsonConvert.DeserializeObject<Account>(contentTask.Result);
             }
         }
     }

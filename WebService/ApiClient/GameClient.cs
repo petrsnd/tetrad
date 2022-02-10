@@ -3,6 +3,9 @@
 // All rights reserved.
 // </copyright>
 // -----------------------------------------------------------------------
+
+using Newtonsoft.Json;
+
 namespace TetraSlide.Api.Clients
 {
     using System.Net;
@@ -63,11 +66,8 @@ namespace TetraSlide.Api.Clients
                 data = gameData
             };
 
-            ObjectContent content = new ObjectContent(
-                typeof(Game),
-                newGame,
-                JsonMediaTypeFormatter.DefaultMediaType);
-
+            var content = new StringContent(JsonConvert.SerializeObject(newGame));
+            
             using (var responseTask = Client.PostAsync(url, content))
             {
                 return this.HandleResponseTask(responseTask);
@@ -104,10 +104,7 @@ namespace TetraSlide.Api.Clients
                 data = gameData
             };
 
-            ObjectContent content = new ObjectContent(
-                typeof(Game),
-                updateGame,
-                JsonMediaTypeFormatter.DefaultMediaType);
+            var content = new StringContent(JsonConvert.SerializeObject(updateGame));
 
             using (var responseTask = Client.PutAsync(url, content))
             {
@@ -142,9 +139,9 @@ namespace TetraSlide.Api.Clients
                 throw new ApiClientException(responseTask.Result.StatusCode, responseTask.Result.Content.ReadAsStringAsync().Result);
             }
 
-            using (var contentTask = responseTask.Result.Content.ReadAsAsync<Game>())
+            using (var contentTask = responseTask.Result.Content.ReadAsStringAsync())
             {
-                return contentTask.Result;
+                return JsonConvert.DeserializeObject<Game>(contentTask.Result);
             }
         }
     }

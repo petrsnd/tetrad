@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Newtonsoft.Json;
+
 namespace TetraSlide.Api.Clients
 {
     using System.Collections.Generic;
@@ -61,9 +63,9 @@ namespace TetraSlide.Api.Clients
                 throw new ApiClientException(responseTask.Result.StatusCode, responseTask.Result.Content.ReadAsStringAsync().Result);
             }
 
-            using (var contentTask = responseTask.Result.Content.ReadAsAsync<IEnumerable<Game>>())
+            using (var contentTask = responseTask.Result.Content.ReadAsStringAsync())
             {
-                return contentTask.Result;
+                return JsonConvert.DeserializeObject<IEnumerable<Game>>(contentTask.Result);
             }
         }
     }
